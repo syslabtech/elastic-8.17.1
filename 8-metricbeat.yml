@@ -37,7 +37,7 @@ spec:
                       - pending_tasks
                       - shard
                     period: 10s
-                    hosts: "https://${data.host}:${data.ports.https}"
+                    hosts: "http://data-es-http.elastic-system:9200"
                     username: ${MONITORED_ES_USERNAME}
                     password: ${MONITORED_ES_PASSWORD}
                     # WARNING: disables TLS as the default certificate is not valid for the pod FQDN
@@ -52,7 +52,7 @@ spec:
                     metricsets:
                       - stats
                     period: 10s
-                    hosts: "https://${data.host}:${data.ports.https}"
+                    hosts: "http://kibana-kb-http.elastic-system:5601"
                     username: ${MONITORED_ES_USERNAME}
                     password: ${MONITORED_ES_PASSWORD}
                     # WARNING: disables TLS as the default certificate is not valid for the pod FQDN
