@@ -1,0 +1,30 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana
+  namespace: elastic-system
+spec:
+  config:
+    monitoring.ui.ccs.enabled: false
+    xpack.reporting.roles.enabled: false
+    xpack.security.session.idleTimeout: 4h
+    xpack.security.session.lifespan: 12h
+  count: 1
+  elasticsearchRef:
+    name: data
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  podTemplate:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+        - name: kibana
+          resources:
+            requests:
+              cpu: 150m
+              memory: 1Gi
+  version: 8.17.1
