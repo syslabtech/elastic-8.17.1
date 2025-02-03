@@ -1,0 +1,73 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: data
+  namespace: elastic-system
+spec:
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  nodeSets:
+    - config:
+        node.attr.attr_name: attr_value
+        node.roles:
+          - master
+          - data
+          - ingest
+        node.store.allow_mmap: false
+        reindex.remote.whitelist:
+          - '*:*'
+      count: 1
+      name: node
+      podTemplate:
+        metadata:
+          annotations:
+            traffic.sidecar.istio.io/excludeInboundPorts: '9300'
+            traffic.sidecar.istio.io/excludeOutboundPorts: '9300,443'
+            traffic.sidecar.istio.io/includeInboundPorts: '*'
+          labels:
+            app: elasticsearch
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            - env:
+                - name: ES_JAVA_OPTS
+                  value: '-Xms1g -Xmx1g'
+              name: elasticsearch
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 1Gi
+          initContainers:
+            - command:
+                - sh
+                - '-c'
+                - |
+                  bin/elasticsearch-plugin install --batch repository-gcs
+              name: install-plugins
+            - command:
+                - sysctl
+                - '-w'
+                - vm.max_map_count=65530       
+              name: sysctl
+              securityContext:
+                privileged: true
+            - command:
+                - sh
+                - '-c'
+                - ulimit -n 1024
+              name: increase-fd-ulimit
+              securityContext:
+                privileged: true
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 20Gi
+            storageClassName: sc-elasticsearch
+  version: 8.17.1
