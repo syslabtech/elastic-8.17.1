@@ -79,12 +79,12 @@ spec:
         - name: metricbeat
           env:
           - name: MONITORED_ES_USERNAME
-            value: elastic
+            value: metricbeat
           - name: MONITORED_ES_PASSWORD
             valueFrom:
               secretKeyRef:
                 key: elastic
-                name: data-es-elastic-user
+                name: data-es-metricbeat-user
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
