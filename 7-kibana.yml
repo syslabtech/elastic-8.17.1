@@ -16,6 +16,9 @@ spec:
     tls:
       selfSignedCertificate:
         disabled: true
+    service:
+      spec:
+        type: NodePort
   podTemplate:
     metadata:
       labels:
