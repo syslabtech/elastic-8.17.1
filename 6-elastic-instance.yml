@@ -18,6 +18,7 @@ spec:
         node.store.allow_mmap: false
         reindex.remote.whitelist:
           - '*:*'
+        network.host: 0.0.0.0
       count: 1
       name: node
       podTemplate:
