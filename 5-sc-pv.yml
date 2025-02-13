@@ -29,7 +29,7 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - congenial-skimmer
+                - ardent-sheathbill
   persistentVolumeReclaimPolicy: Retain
   storageClassName: sc-elasticsearch
   volumeMode: Filesystem
