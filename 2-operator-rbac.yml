@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: elastic-system
+  name: ns-data
   labels:
-    name: elastic-system
+    name: ns-data
 ---
 # Source: eck-operator/templates/service-account.yaml
 apiVersion: v1
@@ -12,7 +12,7 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   name: elastic-operator
-  namespace: elastic-system
+  namespace: ns-data
   labels:
     control-plane: elastic-operator
     app.kubernetes.io/version: "2.16.1"
@@ -22,7 +22,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: elastic-webhook-server-cert
-  namespace: elastic-system
+  namespace: ns-data
   labels:
     control-plane: elastic-operator
     app.kubernetes.io/version: "2.16.1"
@@ -368,14 +368,14 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: elastic-operator
-  namespace: elastic-system
+  namespace: ns-data
 ---
 # Source: eck-operator/templates/webhook.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: elastic-webhook-server
-  namespace: elastic-system
+  namespace: ns-data
   labels:
     control-plane: elastic-operator
     app.kubernetes.io/version: "2.16.1"
@@ -399,7 +399,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-agent-k8s-elastic-co-v1alpha1-agent
   failurePolicy: Ignore
   name: elastic-agent-validation-v1alpha1.k8s.elastic.co
@@ -419,7 +419,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-apm-k8s-elastic-co-v1-apmserver
   failurePolicy: Ignore
   name: elastic-apm-validation-v1.k8s.elastic.co
@@ -439,7 +439,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-apm-k8s-elastic-co-v1beta1-apmserver
   failurePolicy: Ignore
   name: elastic-apm-validation-v1beta1.k8s.elastic.co
@@ -459,7 +459,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-beat-k8s-elastic-co-v1beta1-beat
   failurePolicy: Ignore
   name: elastic-beat-validation-v1beta1.k8s.elastic.co
@@ -479,7 +479,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-enterprisesearch-k8s-elastic-co-v1-enterprisesearch
   failurePolicy: Ignore
   name: elastic-ent-validation-v1.k8s.elastic.co
@@ -499,7 +499,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-enterprisesearch-k8s-elastic-co-v1beta1-enterprisesearch
   failurePolicy: Ignore
   name: elastic-ent-validation-v1beta1.k8s.elastic.co
@@ -519,7 +519,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-elasticsearch-k8s-elastic-co-v1-elasticsearch
   failurePolicy: Ignore
   name: elastic-es-validation-v1.k8s.elastic.co
@@ -539,7 +539,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-elasticsearch-k8s-elastic-co-v1beta1-elasticsearch
   failurePolicy: Ignore
   name: elastic-es-validation-v1beta1.k8s.elastic.co
@@ -559,7 +559,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-ems-k8s-elastic-co-v1alpha1-mapsservers
   failurePolicy: Ignore
   name: elastic-ems-validation-v1alpha1.k8s.elastic.co
@@ -579,7 +579,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-kibana-k8s-elastic-co-v1-kibana
   failurePolicy: Ignore
   name: elastic-kb-validation-v1.k8s.elastic.co
@@ -599,7 +599,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-kibana-k8s-elastic-co-v1beta1-kibana
   failurePolicy: Ignore
   name: elastic-kb-validation-v1beta1.k8s.elastic.co
@@ -619,7 +619,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-autoscaling-k8s-elastic-co-v1alpha1-elasticsearchautoscaler
   failurePolicy: Ignore
   name: elastic-esa-validation-v1alpha1.k8s.elastic.co
@@ -639,7 +639,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-scp-k8s-elastic-co-v1alpha1-stackconfigpolicies
   failurePolicy: Ignore
   name: elastic-scp-validation-v1alpha1.k8s.elastic.co
@@ -659,7 +659,7 @@ webhooks:
 - clientConfig:
     service:
       name: elastic-webhook-server
-      namespace: elastic-system
+      namespace: ns-data
       path: /validate-logstash-k8s-elastic-co-v1alpha1-logstash
   failurePolicy: Ignore
   name: elastic-logstash-validation-v1alpha1.k8s.elastic.co
@@ -683,7 +683,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: elastic-webhook-server
-  namespace: elastic-system
+  namespace: ns-data
   labels:
     control-plane: elastic-operator
     app.kubernetes.io/version: "2.16.1"
