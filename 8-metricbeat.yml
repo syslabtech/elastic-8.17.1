@@ -4,7 +4,7 @@ apiVersion: beat.k8s.elastic.co/v1beta1
 kind: Beat
 metadata:
   name: metricbeat
-  namespace: elastic-system
+  namespace: ns-data
 spec:
   type: metricbeat
   version: 8.17.1
@@ -37,7 +37,7 @@ spec:
                       - pending_tasks
                       - shard
                     period: 10s
-                    hosts: "http://data-es-http.elastic-system:9200"
+                    hosts: "http://data-es-http.ns-data:9200"
                     username: ${MONITORED_ES_USERNAME}
                     password: ${MONITORED_ES_PASSWORD}
                     # WARNING: disables TLS as the default certificate is not valid for the pod FQDN
@@ -52,7 +52,7 @@ spec:
                     metricsets:
                       - stats
                     period: 10s
-                    hosts: "http://kibana-kb-http.elastic-system:5601"
+                    hosts: "http://kibana-kb-http.ns-data:5601"
                     username: ${MONITORED_ES_USERNAME}
                     password: ${MONITORED_ES_PASSWORD}
                     # WARNING: disables TLS as the default certificate is not valid for the pod FQDN
@@ -119,7 +119,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: metricbeat
-  namespace: elastic-system
+  namespace: ns-data
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -128,7 +128,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: metricbeat
-  namespace: elastic-system
+  namespace: ns-data
 roleRef:
   kind: ClusterRole
   name: metricbeat
