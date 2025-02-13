@@ -2,7 +2,7 @@ apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
   name: kibana
-  namespace: elastic-system
+  namespace: ns-data
 spec:
   config:
     monitoring.ui.ccs.enabled: false
