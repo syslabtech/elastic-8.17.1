@@ -29,7 +29,7 @@ data:
     enable-webhook: true
     webhook-name: elastic-webhook.k8s.elastic.co
     webhook-port: 9443
-    operator-namespace: elastic-system
+    operator-namespace: ns-data
     enable-leader-election: true
     elasticsearch-observation-interval: 10s
     ubi-only: false
